@@ -345,11 +345,14 @@ export default function EditEvent() {
                       <SelectValue placeholder="MM" />
                     </SelectTrigger>
                     <SelectContent>
-                      {["00", "15", "30", "45"].map((m) => (
-                        <SelectItem key={m} value={m}>
-                          {m}
-                        </SelectItem>
-                      ))}
+                      {Array.from({ length: 60 }, (_, i) => {
+                        const v = i.toString().padStart(2, "0");
+                        return (
+                          <SelectItem key={v} value={v}>
+                            {v}
+                          </SelectItem>
+                        );
+                      })}
                     </SelectContent>
                   </Select>
 

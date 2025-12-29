@@ -98,8 +98,10 @@ export default function Index() {
             alt="Event background"
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 gradient-hero" />
-          <div className="absolute inset-0 bg-background/40" />
+          {/* Reduced overlay - using gradient with less opacity */}
+          <div className="absolute inset-0 bg-gradient-to-r from-slate-950/70 via-slate-950/50 to-transparent" />
+          {/* Additional subtle dark overlay for better contrast */}
+          <div className="absolute inset-0 bg-slate-950/20" />
         </div>
 
         {/* Content */}
@@ -117,18 +119,18 @@ export default function Index() {
               className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 backdrop-blur-sm mb-6"
             >
               <Sparkles className="w-4 h-4 text-primary" />
-              <span className="text-sm font-medium text-foreground">
+              <span className="text-sm font-medium text-foreground drop-shadow-lg">
                 Discover Amazing Events Near You
               </span>
             </motion.div>
 
-            <h1 className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-foreground mb-6 leading-tight">
+            <h1 className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-foreground mb-6 leading-tight drop-shadow-2xl">
               Create Moments,
               <br />
-              <span className="text-gradient">Build Memories</span>
+              <span className="text-gradient drop-shadow-lg">Build Memories</span>
             </h1>
 
-            <p className="text-lg sm:text-xl text-muted-foreground mb-8 max-w-xl">
+            <p className="text-lg sm:text-xl text-muted-foreground mb-8 max-w-xl drop-shadow-lg">
               The ultimate platform to discover, create, and manage events. 
               Connect with your community and make every moment count.
             </p>
@@ -155,16 +157,16 @@ export default function Index() {
               className="flex gap-8 mt-12 pt-8 border-t border-border/30"
             >
               <div>
-                <p className="font-display text-3xl font-bold text-foreground">10K+</p>
-                <p className="text-sm text-muted-foreground">Active Events</p>
+                <p className="font-display text-3xl font-bold text-foreground drop-shadow-lg">10K+</p>
+                <p className="text-sm text-muted-foreground drop-shadow-md">Active Events</p>
               </div>
               <div>
-                <p className="font-display text-3xl font-bold text-foreground">50K+</p>
-                <p className="text-sm text-muted-foreground">Happy Users</p>
+                <p className="font-display text-3xl font-bold text-foreground drop-shadow-lg">50K+</p>
+                <p className="text-sm text-muted-foreground drop-shadow-md">Happy Users</p>
               </div>
               <div>
-                <p className="font-display text-3xl font-bold text-foreground">100+</p>
-                <p className="text-sm text-muted-foreground">Cities</p>
+                <p className="font-display text-3xl font-bold text-foreground drop-shadow-lg">100+</p>
+                <p className="text-sm text-muted-foreground drop-shadow-md">Cities</p>
               </div>
             </motion.div>
           </motion.div>

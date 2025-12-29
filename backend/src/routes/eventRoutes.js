@@ -7,7 +7,6 @@ const upload = require('../middlewares/upload');
 
 const router = express.Router();
 
-// AI Description Generator (must be before /:id routes to avoid conflicts)
 router.post('/generate-description', authenticateToken, aiController.generateDescription);
 
 // Event CRUD
