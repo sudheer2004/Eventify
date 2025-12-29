@@ -30,14 +30,74 @@ A full-stack **event management web application** where users can create events,
 
 ---
 
-## Concurrency Handling (Brief)
+## Concurrency Handling
 
-To prevent overbooking when multiple users RSVP simultaneously, the backend uses **MongoDB atomic operations (`findOneAndUpdate`)** with capacity checks.
-This guarantees:
+When multiple users try to RSVP at the same time, the main risk is **overbooking**.
+To avoid this, the backend uses **MongoDB’s atomic `findOneAndUpdate` operation** instead of a read-then-write flow.
+
+The RSVP logic is handled in **one database operation** that:
+
+* Checks the event exists
+* Ensures the user hasn’t already RSVP’d
+* Verifies the event is not at full capacity
+* Adds the user to the attendee list
+
+All of these checks happen **inside MongoDB**, not in application memory.
+
+```js
+Event.findOneAndUpdate(
+  {
+    _id: eventId,
+    attendees: { $ne: userId },
+    $expr: { $lt: [{ $size: '$attendees' }, '$capacity'] }
+  },
+  { $push: { attendees: userId } },
+  { new: true }
+)
+```
+
+Because MongoDB executes this atomically:
+
+* Two users can’t take the same seat
+* Capacity is never exceeded
+* Duplicate RSVPs are automatically blocked
+
+If any condition fails, MongoDB simply doesn’t update the document and returns `null`.
+
+---
+
+### Failure Scenarios
+
+When an RSVP fails, the backend performs a quick follow-up check to return the correct message:
+
+* Event doesn’t exist
+* User already RSVP’d
+* Event is already full
+
+This makes error responses clear and predictable for the frontend.
+
+---
+
+### RSVP Cancellation
+
+RSVP cancellation uses the `$pull` operator, which is also atomic:
+
+```js
+{ $pull: { attendees: userId } }
+```
+
+This safely removes the user even if multiple cancellations happen at the same time, without affecting other attendees.
+
+---
+
+### Why This Approach Works Well
 
 * No race conditions
-* No duplicate RSVPs
-* Accurate attendee counts even under high traffic
+* No manual locks or transactions
+* Database enforces capacity rules
+* Scales reliably under high traffic
+
+This pattern is commonly used in **real-world booking and reservation systems**, where correctness matters more than optimistic updates.
 
 ---
 
