@@ -1,16 +1,16 @@
-# Mini Event Platform 🎉
+# Mini Event Platform 
 
 A full-stack **event management web application** where users can create events, RSVP to attend, and manage their participation. Built using the **MERN stack** with a focus on scalability, clean UI, and concurrency safety.
 
 ---
 
-## 🚀 Live Demo
+## Live Demo
 
 * **Deployement:** [https://eventify-topaz-seven.vercel.app/](https://eventify-topaz-seven.vercel.app/)
 
 ---
 
-## ✨ Key Features
+## Key Features
 
 ### Core
 
@@ -30,7 +30,7 @@ A full-stack **event management web application** where users can create events,
 
 ---
 
-## 🧠 Concurrency Handling (Brief)
+## Concurrency Handling (Brief)
 
 To prevent overbooking when multiple users RSVP simultaneously, the backend uses **MongoDB atomic operations (`findOneAndUpdate`)** with capacity checks.
 This guarantees:
@@ -41,7 +41,7 @@ This guarantees:
 
 ---
 
-## 🛠 Tech Stack
+## Tech Stack
 
 **Frontend:** React, React Router, Tailwind CSS, Shadcn UI
 **Backend:** Node.js, Express.js
